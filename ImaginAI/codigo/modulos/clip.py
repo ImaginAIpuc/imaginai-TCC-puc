@@ -1,7 +1,8 @@
 import torch
+import modulos.attention as attention
 from torch import nn
 from torch.nn import functional as F
-from attention import AutoAtencao  # Certifique-se de manter o nome correspondente ao arquivo traduzido
+from modulos.attention import AutoAtencao 
 
 class EmbeddingCLIP(nn.Module):
     def __init__(self, n_vocab: int, n_embd: int, n_token: int):

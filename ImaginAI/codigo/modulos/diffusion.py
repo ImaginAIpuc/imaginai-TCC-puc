@@ -1,7 +1,8 @@
 import torch
 from torch import nn
 from torch.nn import functional as F
-from attention import AutoAtencao, AtencaoCruzada
+from modulos import attention as attention
+from modulos.attention import AutoAtencao, AtencaoCruzada
 
 class EmbeddingDeTempo(nn.Module):
     def __init__(self, n_embd):
@@ -15,7 +16,7 @@ class EmbeddingDeTempo(nn.Module):
         x = self.linear_2(x)
         return x
 
-class BlocoResidualUNET(nn.Module):
+class BlocoResidualUNET(nn.Module): 
     def __init__(self, in_channels, out_channels, n_time=1280):
         super().__init__()
         self.groupnorm_feature = nn.GroupNorm(32, in_channels)

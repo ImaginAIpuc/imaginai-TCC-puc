@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 from tqdm import tqdm
-from ddpm import DDPMAmostra
+from modelo.ddpm import DDPMAmostra
 
 LARGURA = 512
 ALTURA = 512
@@ -80,8 +80,8 @@ def gerar(
         forma_latentes = (1, 4, LATENTES_ALTURA, LATENTES_LARGURA)
 
         if imagem_entrada:
-            encoder = modelos["encoder"]
-            encoder.to(dispositivo)
+            codificador = modelos["encoder"]
+            codificador.to(dispositivo)
 
             imagem_entrada_tensor = imagem_entrada.resize((LARGURA, ALTURA))
 
@@ -97,12 +97,12 @@ def gerar(
 
             ruido_encoder = torch.randn(forma_latentes, generator=gerador, device=dispositivo)
 
-            latentes = encoder(imagem_entrada_tensor, ruido_encoder)
+            latentes = codificador(imagem_entrada_tensor, ruido_encoder)
 
             samplador.set_strength(force=forca)
             latentes = samplador.add_noise(latentes, samplador.timesteps[0])
 
-            para_ocioso(encoder)
+            para_ocioso(codificador)
         else:
 
             latentes = torch.randn(forma_latentes, generator=gerador, device=dispositivo)
@@ -131,10 +131,10 @@ def gerar(
 
         para_ocioso(difusao)
 
-        decoder = modelos["decoder"]
-        decoder.to(dispositivo)
-        imagens = decoder(latentes)
-        para_ocioso(decoder)
+        decodificador = modelos["decoder"]
+        decodificador.to(dispositivo)
+        imagens = decodificador(latentes)
+        para_ocioso(decodificador)
 
         imagens = rescale(imagens, (-1, 1), (0, 255), clamp=True)
         imagens = imagens.permute(0, 2, 3, 1)

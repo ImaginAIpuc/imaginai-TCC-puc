@@ -1,7 +1,8 @@
 import torch
 from torch import nn
 from torch.nn import functional as F
-from attention import AutoAtencao
+from modulos import attention as attention
+from modulos.attention import AutoAtencao
 
 class VAE_BlocoAtencao(nn.Module):
     def __init__(self, canais):

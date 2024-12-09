@@ -5,7 +5,6 @@ class DDPMAmostra:
 
     def __init__(self, gerador: torch.Generator, num_passos_treinamento=1000, beta_inicio: float = 0.00085, beta_fim: float = 0.0120):
         # Parâmetros "beta_inicio" e "beta_fim" obtidos de: https://github.com/CompVis/stable-diffusion/blob/21f890f9da3cfbeaba8e2ac3c425ee9e998d5229/configs/stable-diffusion/v1-inference.yaml#L5C8-L5C8
-        # Para as convenções de nomenclatura, consulte o arquivo (https://arxiv.org/pdf/2006.11239.pdf)
         self.betas = torch.linspace(beta_inicio ** 0.5, beta_fim ** 0.5, num_passos_treinamento, dtype=torch.float32) ** 2
         self.alphas = 1.0 - self.betas
         self.alphas_prod_cum = torch.cumprod(self.alphas, dim=0)

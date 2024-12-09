@@ -1,8 +1,8 @@
 import torch
 from torch import nn
 from torch.nn import functional as F
-from decoder import VAE_BlocoAtencao, VAE_BlocoResidual
-
+from modulos import decodificador as decodificador
+from modulos.decodificador import VAE_BlocoAtencao, VAE_BlocoResidual
 class VAE_Encoder(nn.Sequential):
     def __init__(self):
         super().__init__(
